@@ -39,7 +39,7 @@
 
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 120px; /* Account for fixed nav height */
+            scroll-padding-top: 100px; /* Account for fixed nav height + extra space */
         }
 
         /* Navigation - Strong Contrast */
@@ -211,10 +211,80 @@
             border-color: rgba(255, 255, 255, 0.4);
         }
 
+        /* Hamburger Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
         @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: var(--primary);
+                flex-direction: column;
+                padding: 1.5rem 1rem;
+                gap: 0.75rem;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.4s ease;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+                margin: 0;
+                width: 100%;
+            }
+
+            .nav-links.active {
+                max-height: 500px;
+                opacity: 1;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                width: 100%;
+                text-align: center;
+                padding: 1rem;
+                font-size: 1rem;
+            }
+
             nav .container {
                 padding: 1rem 1rem;
-                flex-wrap: wrap;
+                justify-content: space-between;
             }
 
             .logo {
@@ -229,26 +299,13 @@
             .logo-text {
                 height: 26px;
             }
-
-            .nav-links {
-                width: 100%;
-                margin-top: 0.75rem;
-                gap: 0.5rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .nav-links a {
-                padding: 0.75rem 1.25rem;
-                font-size: 0.9rem;
-                min-height: 44px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
         }
 
         @media (max-width: 480px) {
+            .nav-links {
+                top: 70px;
+            }
+
             nav .container {
                 padding: 0.75rem 1rem;
             }
@@ -264,28 +321,12 @@
             .logo-text {
                 height: 22px;
             }
-
-            .nav-links {
-                width: 100%;
-                margin-top: 0.75rem;
-                justify-content: center;
-                gap: 0.5rem;
-            }
-
-            .nav-links a {
-                padding: 0.75rem 1.25rem;
-                font-size: 0.85rem;
-                min-height: 44px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
         }
 
         /* Hero Section - Modern integrated design */
         .hero {
             margin-top: 90px;
-            padding: 4rem 0 0 0;
+            padding: 6rem 0 0 0;
             background: linear-gradient(135deg, #f8f9fa 0%, #e8eaf0 100%);
             color: var(--text);
             position: relative;
@@ -2060,7 +2101,12 @@
             <a href="#" class="logo">
                 <img src="logo.png" alt="Lucidly Digital Icon" class="logo-icon">
             </a>
-            <ul class="nav-links">
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#services">Solutions</a></li>
                 <li><a href="#work">Work</a></li>
                 <li><a href="#how-it-works">Process</a></li>
@@ -2073,9 +2119,9 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Custom Digital Solutions That Actually Work For Your Business</h1>
-                <p>No templates. No cookie-cutter packages. We build exactly what you need—from restaurant tech systems to brand marketing to custom software—tailored to how you actually operate.</p>
-                <p class="consultation-text">Get a free consultation to discover how custom-built solutions can transform your business.</p>
+                <h1>No Templates. No Packages. Just What Works For You.</h1>
+                <p>Not every business needs the same thing. We build, configure, design, and code whatever solves your actual problem—not what's on our service menu.</p>
+                <p class="consultation-text">Describe the problem. We'll figure out the solution.</p>
                 <a href="#contact" class="cta-button">Let's Talk</a>
             </div>
             
@@ -2136,34 +2182,30 @@
 
     <section id="services" class="industry-solutions">
         <div class="container">
-            <h2 class="section-title">Three Core Services, Any Industry</h2>
-            <p class="section-subtitle">Whether you run a restaurant, retail store, professional practice, or anything else—these are the problems we solve.</p>
+            <h2 class="section-title">What We Can Do</h2>
+            <p class="section-subtitle">Here are some examples of work we've done—but we're not limited to these. If it's digital and your business needs it, let's talk.</p>
             
             <div class="solutions-grid">
                 <div class="solution-card">
                     <div class="solution-header" onclick="this.parentElement.classList.toggle('active')">
                         <div class="solution-icon">⚙️</div>
-                        <h3>System Setup & Tech Support</h3>
+                        <h3>Tech Setup & Configuration</h3>
                     </div>
                     <div class="solution-content">
                         <div class="solution-content-inner">
-                            <p><strong>Your tech isn't talking to each other. You're managing too many platforms. Nothing is set up right.</strong></p>
+                            <p>Sometimes you don't need custom software—you just need someone who actually knows how to configure the systems you already have.</p>
                             
-                            <p>We configure the systems your business already uses (or needs to use) so they actually work for you. No custom coding required—just proper setup, configuration, and training.</p>
-                            
-                            <p><strong>What we handle:</strong></p>
+                            <p><strong>This could be:</strong></p>
                             <ul class="solution-list">
-                                <li>POS system setup and configuration (Toast, Square, Clover, etc.)</li>
-                                <li>Third-party platform management (delivery apps, booking systems, marketplaces)</li>
-                                <li>Payment processor setup and integration</li>
-                                <li>E-commerce platform configuration (Shopify, WooCommerce, etc.)</li>
-                                <li>Accounting and inventory software setup</li>
-                                <li>Email marketing and CRM configuration</li>
-                                <li>Staff training on your systems</li>
-                                <li>Ongoing IT support when things break</li>
+                                <li>POS systems (Toast, Square, Clover)</li>
+                                <li>E-commerce platforms (Shopify, WooCommerce)</li>
+                                <li>Booking and reservation systems</li>
+                                <li>Payment processors and accounting software</li>
+                                <li>CRM and email marketing tools</li>
+                                <li>Pretty much any business software that needs proper setup</li>
                             </ul>
                             
-                            <p><strong>Real example:</strong> We set up a restaurant's Toast POS, configured their DoorDash/Uber Eats/Grubhub accounts, synced their menus across all platforms, and now provide ongoing IT support.</p>
+                            <p>If your tech isn't working together the way it should, we can fix it.</p>
                         </div>
                     </div>
                 </div>
@@ -2171,25 +2213,23 @@
                 <div class="solution-card">
                     <div class="solution-header" onclick="this.parentElement.classList.toggle('active')">
                         <div class="solution-icon">📸</div>
-                        <h3>Brand & Digital Marketing</h3>
+                        <h3>Marketing & Creative Work</h3>
                     </div>
                     <div class="solution-content">
                         <div class="solution-content-inner">
-                            <p><strong>Your online presence doesn't match the quality of your actual business. You need marketing but don't have time.</strong></p>
+                            <p>Your business looks better in person than it does online. We can fix that.</p>
                             
-                            <p>We handle the creative and technical work to make your business look professional online and help you reach more customers.</p>
-                            
-                            <p><strong>What we do:</strong></p>
+                            <p><strong>This could be:</strong></p>
                             <ul class="solution-list">
-                                <li>Professional photography and graphic design</li>
-                                <li>Menu design, business cards, and print materials</li>
+                                <li>Professional photography (spaces, products, team, events)</li>
                                 <li>Social media management and content creation</li>
+                                <li>Graphic design (logos, menus, business cards, signage)</li>
                                 <li>Website design and development</li>
-                                <li>Email marketing and local SEO</li>
-                                <li>Digital advertising campaigns</li>
+                                <li>Email campaigns and local SEO</li>
+                                <li>Digital advertising</li>
                             </ul>
                             
-                            <p><strong>Real example:</strong> We handle professional photography and ongoing social media management for a hospitality business, creating posts, managing their presence, and keeping them consistent online.</p>
+                            <p>If you need your online presence to represent your business, we can handle it.</p>
                         </div>
                     </div>
                 </div>
@@ -2197,28 +2237,27 @@
                 <div class="solution-card">
                     <div class="solution-header" onclick="this.parentElement.classList.toggle('active')">
                         <div class="solution-icon">💻</div>
-                        <h3>Custom Software Development</h3>
+                        <h3>Custom Software & Development</h3>
                     </div>
                     <div class="solution-content">
                         <div class="solution-content-inner">
-                            <p><strong>Off-the-shelf software doesn't fit your business. You need something built specifically for how you operate.</strong></p>
+                            <p>When off-the-shelf software doesn't cut it, we build exactly what you need from scratch.</p>
                             
-                            <p>We write code from scratch to build exactly what you need. This is custom development work—not configuring existing platforms, but building new software tailored to your unique requirements.</p>
+                            <p>We've been coding for 10+ years. If it can be built with code, we can build it.</p>
                             
-                            <p><strong>What we build:</strong></p>
+                            <p><strong>This could be:</strong></p>
                             <ul class="solution-list">
                                 <li>Custom web applications and dashboards</li>
-                                <li>Booking and scheduling systems</li>
+                                <li>Booking and scheduling systems tailored to your workflow</li>
                                 <li>Client portals and customer-facing tools</li>
-                                <li>Internal workflow automation</li>
-                                <li>E-commerce platforms with specific features</li>
+                                <li>Internal automation and workflow tools</li>
                                 <li>Mobile apps (iOS and Android)</li>
-                                <li>API integrations between your existing tools</li>
-                                <li>Data dashboards and reporting tools</li>
-                                <li>Any software solution your business needs</li>
+                                <li>API integrations between your existing systems</li>
+                                <li>E-commerce with specific features you can't get elsewhere</li>
+                                <li>Basically anything that requires custom code</li>
                             </ul>
                             
-                            <p><strong>Our approach:</strong> We've been coding for 10+ years. If it can be built with code, we can build it. We start by understanding your actual business problem, then engineer the exact solution you need.</p>
+                            <p>If you need something built that doesn't exist yet, we should talk.</p>
                         </div>
                     </div>
                 </div>
@@ -2471,6 +2510,34 @@
     </footer>
 
     <script>
+        // Hamburger menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        menuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = navLinks.contains(event.target);
+            const isClickOnToggle = menuToggle.contains(event.target);
+            
+            if (!isClickInsideNav && !isClickOnToggle && navLinks.classList.contains('active')) {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
         // Smooth scrolling for navigation links with proper offset
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
