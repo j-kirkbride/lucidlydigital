@@ -561,15 +561,15 @@
             display: inline-block;
             background: var(--primary);
             color: white;
-            padding: 1rem 2.5rem;
-            border-radius: 12px;
+            padding: 0.75rem 1.75rem;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             animation: fadeInUp 0.8s ease-out 0.6s both;
             border: 2px solid var(--primary);
-            box-shadow: 0 4px 12px rgba(0, 0, 125, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 125, 0.15);
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
         }
@@ -1189,35 +1189,35 @@
             background: white;
             border: 2px solid var(--border);
             border-radius: 16px;
-            padding: 2.5rem;
+            padding: 0;
             transition: all 0.3s ease;
+            overflow: hidden;
         }
 
         .work-card:hover {
             border-color: var(--primary);
             box-shadow: 0 8px 24px rgba(0, 0, 125, 0.12);
-            transform: translateY(-4px);
         }
 
         .work-card-header {
             display: flex;
             align-items: center;
             gap: 1.5rem;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 2px solid var(--border);
+            padding: 2rem 2.5rem;
+            margin-bottom: 0;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            transition: background-color 0.2s ease;
         }
 
-        .work-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            flex-shrink: 0;
+        .work-card-header:hover {
+            background-color: rgba(0, 0, 125, 0.02);
+        }
+
+        .work-title {
+            flex: 1;
         }
 
         .work-title h3 {
@@ -1233,6 +1233,53 @@
             font-size: 0.95rem;
             margin: 0;
             font-weight: 500;
+        }
+
+        .work-toggle {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .work-card.active .work-toggle {
+            transform: rotate(45deg);
+        }
+
+        .work-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+        }
+
+        .work-card.active .work-content {
+            max-height: 1500px;
+            opacity: 1;
+        }
+
+        .work-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .work-description {
+            padding: 2rem 2.5rem 2.5rem;
         }
 
         .work-description p {
@@ -1433,10 +1480,6 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
             .hero .container {
                 grid-template-columns: 1fr;
                 gap: 2rem;
@@ -1646,14 +1689,12 @@
                 gap: 2rem;
             }
 
-            .work-card {
+            .work-card-header {
                 padding: 1.5rem;
             }
 
-            .work-card-header {
-                flex-direction: column;
-                text-align: center;
-                gap: 1rem;
+            .work-description {
+                padding: 1.5rem;
             }
 
             .work-icon {
@@ -2102,7 +2143,7 @@
                 <div class="solution-card">
                     <div class="solution-header" onclick="this.parentElement.classList.toggle('active')">
                         <div class="solution-icon">⚙️</div>
-                        <h3>System Setup & Configuration</h3>
+                        <h3>System Setup & Tech Support</h3>
                     </div>
                     <div class="solution-content">
                         <div class="solution-content-inner">
@@ -2192,49 +2233,55 @@
             
             <div class="work-grid">
                 <div class="work-card">
-                    <div class="work-card-header">
+                    <div class="work-card-header" onclick="this.parentElement.classList.toggle('active')">
                         <div class="work-icon">🍽️</div>
                         <div class="work-title">
                             <h3>Restaurant Tech Transformation</h3>
                             <p class="work-client">Local Restaurant</p>
                         </div>
+                        <div class="work-toggle">+</div>
                     </div>
-                    <div class="work-description">
-                        <p><strong>The Challenge:</strong> Managing orders from multiple delivery platforms, disconnected POS system, and constant menu updates across different apps was overwhelming staff and creating errors.</p>
-                        
-                        <p><strong>What We Did:</strong></p>
-                        <ul class="work-list">
-                            <li>Complete Toast POS setup and configuration</li>
-                            <li>Integrated DoorDash, Uber Eats, and Grubhub</li>
-                            <li>Synced menus across all platforms</li>
-                            <li>Staff training and documentation</li>
-                            <li>Ongoing IT support</li>
-                        </ul>
-                        
-                        <p><strong>The Result:</strong> Streamlined operations, fewer order errors, and staff can now focus on customers instead of fighting with technology.</p>
+                    <div class="work-content">
+                        <div class="work-description">
+                            <p><strong>The Challenge:</strong> Managing orders from multiple delivery platforms, disconnected POS system, and constant menu updates across different apps was overwhelming staff and creating errors.</p>
+                            
+                            <p><strong>What We Did:</strong></p>
+                            <ul class="work-list">
+                                <li>Complete Toast POS setup and configuration</li>
+                                <li>Integrated DoorDash, Uber Eats, and Grubhub</li>
+                                <li>Synced menus across all platforms</li>
+                                <li>Staff training and documentation</li>
+                                <li>Ongoing IT support</li>
+                            </ul>
+                            
+                            <p><strong>The Result:</strong> Streamlined operations, fewer order errors, and staff can now focus on customers instead of fighting with technology.</p>
+                        </div>
                     </div>
                 </div>
 
                 <div class="work-card">
-                    <div class="work-card-header">
+                    <div class="work-card-header" onclick="this.parentElement.classList.toggle('active')">
                         <div class="work-icon">📸</div>
                         <div class="work-title">
                             <h3>Professional Photography & Social Media</h3>
                             <p class="work-client">Historic Inn</p>
                         </div>
+                        <div class="work-toggle">+</div>
                     </div>
-                    <div class="work-description">
-                        <p><strong>The Challenge:</strong> A beautiful property with a lot of character, but they needed fresh, professional imagery and a consistent social media presence to showcase it online.</p>
-                        
-                        <p><strong>What We Did:</strong></p>
-                        <ul class="work-list">
-                            <li>Professional photo shoot capturing the property's unique charm</li>
-                            <li>Developed a content strategy and consistent posting schedule</li>
-                            <li>Handle ongoing social media management and engagement</li>
-                            <li>Built a cohesive brand presence across platforms</li>
-                        </ul>
-                        
-                        <p><strong>The Result:</strong> A polished online presence that truly represents the quality and character of the property, helping attract guests who appreciate what makes it special.</p>
+                    <div class="work-content">
+                        <div class="work-description">
+                            <p><strong>The Challenge:</strong> A beautiful property with a lot of character, but they needed fresh, professional imagery and a consistent social media presence to showcase it online.</p>
+                            
+                            <p><strong>What We Did:</strong></p>
+                            <ul class="work-list">
+                                <li>Professional photo shoot capturing the property's unique charm</li>
+                                <li>Developed a content strategy and consistent posting schedule</li>
+                                <li>Handle ongoing social media management and engagement</li>
+                                <li>Built a cohesive brand presence across platforms</li>
+                            </ul>
+                            
+                            <p><strong>The Result:</strong> A polished online presence that truly represents the quality and character of the property, helping attract guests who appreciate what makes it special.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2272,10 +2319,6 @@
                 </div>
             </div>
 
-            <div class="cta-inline">
-                <p>Ready to get started?</p>
-                <a href="#contact" class="cta-button">Schedule Your Free Consultation</a>
-            </div>
         </div>
     </section>
 
