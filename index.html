@@ -220,7 +220,9 @@
             border: none;
             cursor: pointer;
             padding: 8px;
-            z-index: 1001;
+            position: relative;
+            z-index: 1002;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .menu-toggle span {
@@ -2162,7 +2164,7 @@
                 
                 <!-- Image 9 -->
                 <div class="work-image" data-position="0" data-image="9">
-                    <img src="work-9.jpg" alt="Portfolio Image 9" loading="eager">
+                    <img src="work-9.png" alt="Portfolio Image 9" loading="eager">
                 </div>
                 <!-- Image 10 -->
                 <div class="work-image" data-position="1" data-image="10">
@@ -2514,29 +2516,31 @@
         const menuToggle = document.getElementById('menu-toggle');
         const navLinks = document.getElementById('nav-links');
 
-        menuToggle.addEventListener('click', function() {
-            this.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
-
-        // Close menu when clicking a link
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', function() {
-                menuToggle.classList.remove('active');
-                navLinks.classList.remove('active');
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navLinks.classList.toggle('active');
             });
-        });
 
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const isClickInsideNav = navLinks.contains(event.target);
-            const isClickOnToggle = menuToggle.contains(event.target);
-            
-            if (!isClickInsideNav && !isClickOnToggle && navLinks.classList.contains('active')) {
-                menuToggle.classList.remove('active');
-                navLinks.classList.remove('active');
-            }
-        });
+            // Close menu when clicking a link
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const isClickInsideNav = navLinks.contains(event.target);
+                const isClickOnToggle = menuToggle.contains(event.target);
+                
+                if (!isClickInsideNav && !isClickOnToggle && navLinks.classList.contains('active')) {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+        }
 
         // Smooth scrolling for navigation links with proper offset
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
