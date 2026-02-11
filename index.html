@@ -257,19 +257,14 @@
         }
 
         @media (max-width: 768px) {
-            /* TEST: Make body bright red to confirm CSS loads */
-            body {
-                background: red !important;
-            }
-            
             .menu-toggle {
                 display: flex;
             }
 
-            /* TEST: Show menu by default to see if it renders at all */
+            /* Mobile nav - show by default for now, fix positioning */
             nav .nav-links {
                 position: fixed;
-                top: 80px;
+                top: 90px; /* Increased from 80px */
                 left: 0;
                 width: 100%;
                 background: var(--primary);
