@@ -211,8 +211,29 @@
             border-color: rgba(255, 255, 255, 0.4);
         }
 
-        /* Mobile Navigation - Simple Wrap */
+        /* Mobile Navigation - CSS-Only Dropdown (Checkbox Hack) */
+        .nav-toggle {
+            display: none;
+        }
+
+        .nav-toggle-label {
+            display: none;
+            cursor: pointer;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            user-select: none;
+        }
+
         @media (max-width: 768px) {
+            .nav-toggle-label {
+                display: block;
+            }
+
             nav .container {
                 flex-wrap: wrap;
                 padding: 1rem;
@@ -222,14 +243,31 @@
                 width: 100%;
                 order: 3;
                 margin-top: 1rem;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 0.5rem;
+                flex-direction: column;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                transition: max-height 0.3s ease, opacity 0.3s ease;
+                gap: 0;
+            }
+
+            /* When checkbox is checked, show menu */
+            .nav-toggle:checked ~ .nav-links {
+                max-height: 500px;
+                opacity: 1;
+            }
+
+            .nav-links li {
+                width: 100%;
             }
 
             .nav-links a {
-                padding: 0.75rem 1.25rem;
-                font-size: 0.9rem;
+                width: 100%;
+                display: block;
+                text-align: center;
+                padding: 1rem;
+                font-size: 1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
         }
 
@@ -2033,6 +2071,8 @@
             <a href="#" class="logo">
                 <img src="logo.png" alt="Lucidly Digital Icon" class="logo-icon">
             </a>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle">
+            <label for="nav-toggle" class="nav-toggle-label">Menu ☰</label>
             <ul class="nav-links" id="nav-links">
                 <li><a href="#services">Solutions</a></li>
                 <li><a href="#work">Work</a></li>
