@@ -981,8 +981,9 @@
         /* Industry-Specific Solutions Section */
         .industry-solutions {
             padding: 6rem 2rem;
-            background: #ffffff;
+            background: linear-gradient(180deg, #f0f4ff 0%, #fafbff 100%);
             position: relative;
+            border-top: 4px solid rgba(0, 0, 125, 0.1);
         }
 
         .industry-solutions::before {
@@ -991,10 +992,10 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 80px;
-            background: linear-gradient(0deg, 
-                transparent 0%,
-                rgba(255, 107, 107, 0.02) 100%);
+            height: 120px;
+            background: linear-gradient(180deg, 
+                rgba(0, 0, 125, 0.03) 0%,
+                transparent 100%);
             pointer-events: none;
         }
 
@@ -1226,8 +1227,9 @@
         /* FAQ Section */
         .faq-section {
             padding: 8rem 2rem;
-            background: linear-gradient(180deg, var(--secondary) 0%, #ffffff 100%);
+            background: linear-gradient(180deg, #f0fdf4 0%, #fafffe 100%);
             position: relative;
+            border-top: 4px solid rgba(34, 197, 94, 0.12);
         }
 
         .faq-section::before {
@@ -1236,6 +1238,14 @@
             top: 0;
             left: 0;
             right: 0;
+            height: 120px;
+            background: linear-gradient(180deg, 
+                rgba(34, 197, 94, 0.04) 0%,
+                transparent 100%);
+            pointer-events: none;
+        }
+
+        .faq-section::after {
             height: 100px;
             background: linear-gradient(180deg, 
                 rgba(0, 0, 125, 0.02) 0%,
@@ -1361,7 +1371,22 @@
         /* Recent Work Section - Matches Solutions Structure */
         .recent-work-section {
             padding: 8rem 2rem;
-            background: #ffffff;
+            background: linear-gradient(180deg, #fff5f5 0%, #fffafa 100%);
+            position: relative;
+            border-top: 4px solid rgba(255, 107, 107, 0.15);
+        }
+
+        .recent-work-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(180deg, 
+                rgba(255, 107, 107, 0.05) 0%,
+                transparent 100%);
+            pointer-events: none;
         }
 
         .recent-work-section .container {
@@ -1370,42 +1395,46 @@
         }
 
         .work-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            display: flex;
+            flex-direction: column;
             gap: 3rem;
             margin-top: 3rem;
         }
 
         .work-card {
-            background: var(--card-bg);
+            background: white;
             padding: 0;
-            border-radius: 16px;
-            border: 1px solid var(--border);
+            border-radius: 24px;
+            border: none;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
-            align-self: start;
             opacity: 0;
             transform: translateY(30px);
+            box-shadow: 
+                0 4px 20px rgba(0, 0, 0, 0.08),
+                0 1px 4px rgba(0, 0, 0, 0.04);
         }
 
-        .work-card::after {
+        .work-card::before {
             content: '';
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, var(--primary), var(--accent), var(--primary));
-            border-radius: 16px;
-            opacity: 0;
-            z-index: -1;
-            transition: opacity 0.4s ease;
-            filter: blur(10px);
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 8px;
+            background: linear-gradient(180deg, var(--primary), var(--accent));
         }
 
-        .work-card:hover::after {
-            opacity: 0.4;
+        .work-card:nth-child(even)::before {
+            background: linear-gradient(180deg, var(--accent), var(--primary));
+        }
+
+        .work-card:hover {
+            transform: translateX(8px);
+            box-shadow: 
+                0 12px 40px rgba(0, 0, 0, 0.12),
+                0 4px 12px rgba(0, 0, 0, 0.06);
         }
 
         .work-card.visible {
@@ -1415,98 +1444,98 @@
         .work-card:nth-child(1) { animation-delay: 0.1s; }
         .work-card:nth-child(2) { animation-delay: 0.2s; }
 
-        .work-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .work-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .work-card:hover {
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            border-color: var(--primary);
-        }
-
-        .work-card.active {
-            border-color: var(--primary);
-        }
-
-        .work-card.active::before {
-            transform: scaleX(1);
-        }
-
         .work-card-header {
             display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 2rem 2.5rem;
+            align-items: flex-start;
+            gap: 2rem;
+            padding: 2.5rem 3rem;
             margin-bottom: 0;
-            border-bottom: 1px solid var(--border);
             cursor: pointer;
             user-select: none;
             position: relative;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
             transition: background-color 0.2s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .work-card.active .work-card-header {
+            border-bottom-color: var(--border);
         }
 
         .work-card-header:active {
-            background-color: rgba(0, 0, 125, 0.03);
+            background-color: rgba(0, 0, 125, 0.02);
         }
 
         .work-card-header::after {
-            content: '▼';
+            content: '↓';
             position: absolute;
-            right: 2rem;
-            font-size: 0.9rem;
+            right: 3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
             color: var(--primary);
             transition: transform 0.3s ease;
+            font-weight: 300;
         }
 
         .work-card.active .work-card-header::after {
-            transform: rotate(180deg);
+            transform: translateY(-50%) rotate(180deg);
         }
 
         .work-icon {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
-            border-radius: 12px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 2.5rem;
             flex-shrink: 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 125, 0.2);
+            position: relative;
         }
 
-        .work-card-header:hover .work-icon {
-            transform: rotate(-5deg) scale(1.1);
+        .work-icon::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 22px;
+            opacity: 0;
+            filter: blur(12px);
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .work-card:hover .work-icon::before {
+            opacity: 0.6;
+        }
+
+        .work-title {
+            flex: 1;
         }
 
         .work-title h3 {
             font-family: 'DM Serif Display', serif;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             color: var(--primary);
+            margin: 0 0 0.5rem 0;
             font-style: italic;
-            margin: 0 0 0.25rem 0;
+            line-height: 1.2;
         }
 
         .work-client {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            margin: 0;
-            font-weight: 500;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 0.35rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .work-content {
@@ -1522,44 +1551,110 @@
         }
 
         .work-description {
-            padding: 2rem 2.5rem 2.5rem;
+            padding: 2.5rem 3rem 3rem;
+            background: linear-gradient(180deg, #fafbfc 0%, white 100%);
         }
 
         .work-description p {
-            line-height: 1.7;
-            margin-bottom: 1.25rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
             color: var(--text);
+            font-size: 1.05rem;
         }
 
         .work-description p:last-child {
             margin-bottom: 0;
         }
 
+        .work-description strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
         .work-list {
             list-style: none;
             padding: 0;
-            margin: 1.25rem 0;
+            margin: 1.5rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
         }
 
         .work-list li {
-            padding: 0.5rem 0 0.5rem 1.75rem;
+            padding: 1rem 1.25rem;
             position: relative;
             color: var(--text);
             line-height: 1.6;
+            background: white;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.2s ease;
+        }
+
+        .work-list li:hover {
+            transform: translateX(4px);
+            border-left-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .work-list li::before {
-            content: '✓';
+            content: '→';
             position: absolute;
-            left: 0;
+            left: -1.5rem;
             color: var(--accent);
             font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .work-card-header {
+                padding: 2rem 1.5rem;
+                gap: 1.5rem;
+            }
+
+            .work-card-header::after {
+                right: 1.5rem;
+            }
+
+            .work-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+
+            .work-title h3 {
+                font-size: 1.4rem;
+            }
+
+            .work-description {
+                padding: 2rem 1.5rem;
+            }
+
+            .work-list {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* How It Works Section */
         .how-it-works-section {
             padding: 8rem 2rem;
-            background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+            background: linear-gradient(180deg, #f5f3ff 0%, #faf9ff 100%);
+            position: relative;
+            border-top: 4px solid rgba(100, 50, 200, 0.12);
+        }
+
+        .how-it-works-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(180deg, 
+                rgba(100, 50, 200, 0.04) 0%,
+                transparent 100%);
+            pointer-events: none;
         }
 
         .how-it-works-section .container {
@@ -2870,19 +2965,19 @@
 
                 <div class="faq-item">
                     <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
-                        <h3>Why should I choose you over a bigger agency?</h3>
+                        <h3>What makes you different?</h3>
                         <div class="faq-icon">+</div>
                     </div>
                     <div class="faq-answer">
                         <div class="faq-answer-inner">
-                            <p>Honestly, bigger agencies have their strengths—they can handle massive enterprise needs and have dedicated departments for everything.</p>
-                            <p><strong>Choose us if you value:</strong></p>
+                            <p>We're engineers who build custom solutions, not salespeople selling packages.</p>
+                            <p><strong>What you get:</strong></p>
                             <ul>
-                                <li><strong>Direct communication:</strong> Work directly with the developers building your solution</li>
-                                <li><strong>Custom-built solutions:</strong> We write code from scratch, not template customization</li>
-                                <li><strong>Engineering approach:</strong> We solve problems methodically, focused on what actually works</li>
-                                <li><strong>Honest feedback:</strong> We'll tell you when your idea needs refinement or when there's a better approach</li>
-                                <li><strong>Flexibility:</strong> Need to adjust course? We can pivot without committee approvals</li>
+                                <li><strong>Direct access:</strong> Work directly with the person building your solution—no account managers in the middle</li>
+                                <li><strong>Built from scratch:</strong> We write actual code for your specific needs, not template customization</li>
+                                <li><strong>Engineering mindset:</strong> We focus on solving your problem efficiently, not upselling you on features</li>
+                                <li><strong>Honest feedback:</strong> If your idea needs work or there's a better approach, we'll tell you</li>
+                                <li><strong>Fast decisions:</strong> Need to change direction? No committees, no approvals—we just do it</li>
                             </ul>
                         </div>
                     </div>
