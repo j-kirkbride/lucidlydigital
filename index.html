@@ -261,41 +261,29 @@
                 display: flex;
             }
 
-            /* Completely override desktop nav styles for mobile */
+            /* Mobile nav - use display none/block for iOS reliability */
             nav .nav-links {
-                /* Reset desktop styles */
                 position: fixed;
-                display: block;
-                
-                /* Mobile positioning */
                 top: 80px;
                 left: 0;
                 width: 100%;
-                
-                /* Mobile styling */
                 background: var(--primary);
-                padding: 0;
-                margin: 0;
-                
-                /* Hidden by default */
-                height: 0;
-                overflow: hidden;
-                
-                /* Transition */
-                transition: height 0.3s ease;
-                
-                /* Stack items */
-                flex-direction: column;
-                gap: 0;
-                
                 z-index: 1000;
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+                
+                /* Hidden by default */
+                display: none;
+                
+                /* Reset desktop styles */
+                flex-direction: column;
+                gap: 0;
+                align-items: stretch;
+                padding: 0;
+                margin: 0;
             }
 
             nav .nav-links.active {
-                height: auto;
-                max-height: 500px;
-                padding: 1rem 0;
+                display: block;
             }
 
             nav .nav-links li {
@@ -310,18 +298,21 @@
                 width: 100%;
                 display: block;
                 text-align: center;
-                padding: 1rem 1.5rem;
+                padding: 1.25rem 1.5rem;
                 font-size: 1rem;
-                border-radius: 0;
-                margin: 0;
-                border: none;
+                color: white;
+                text-decoration: none;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
                 background: transparent;
+                border-radius: 0;
+                margin: 0;
             }
 
-            nav .nav-links a:hover {
-                background: rgba(255, 255, 255, 0.1);
+            nav .nav-links a:hover,
+            nav .nav-links a:active {
+                background: rgba(255, 255, 255, 0.15);
                 transform: none;
+                border-color: rgba(255, 255, 255, 0.2);
             }
 
             nav .container {
