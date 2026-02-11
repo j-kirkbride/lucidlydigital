@@ -216,17 +216,23 @@
             display: none;
             flex-direction: column;
             gap: 5px;
-            background: transparent;
-            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
             cursor: pointer;
             padding: 12px;
             position: relative;
             z-index: 1002;
-            -webkit-tap-highlight-color: transparent;
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
             min-width: 44px;
             min-height: 44px;
             justify-content: center;
             align-items: center;
+            touch-action: manipulation;
+        }
+
+        .menu-toggle:active {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .menu-toggle span {
@@ -2523,39 +2529,46 @@
     </footer>
 
     <script>
-        // Hamburger menu toggle
-        const menuToggle = document.getElementById('menu-toggle');
-        const navLinks = document.getElementById('nav-links');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hamburger menu toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const navLinks = document.getElementById('nav-links');
 
-        if (menuToggle && navLinks) {
-            menuToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('Menu toggle clicked');
-                this.classList.toggle('active');
-                navLinks.classList.toggle('active');
-                console.log('Nav links classes:', navLinks.className);
-            });
-
-            // Close menu when clicking a link
-            navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', function() {
-                    menuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                });
-            });
-
-            // Close menu when clicking outside
-            document.addEventListener('click', function(event) {
-                const isClickInsideNav = navLinks.contains(event.target);
-                const isClickOnToggle = menuToggle.contains(event.target);
+            if (menuToggle && navLinks) {
+                // Use touchstart for iOS, click for others
+                const eventType = 'ontouchstart' in window ? 'touchstart' : 'click';
                 
-                if (!isClickInsideNav && !isClickOnToggle && navLinks.classList.contains('active')) {
-                    menuToggle.classList.remove('active');
-                    navLinks.classList.remove('active');
-                }
-            });
-        }
+                menuToggle.addEventListener(eventType, function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('Menu toggle activated');
+                    this.classList.toggle('active');
+                    navLinks.classList.toggle('active');
+                    console.log('Nav links classes:', navLinks.className);
+                }, { passive: false });
+
+                // Close menu when clicking a link
+                navLinks.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        menuToggle.classList.remove('active');
+                        navLinks.classList.remove('active');
+                    });
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    const isClickInsideNav = navLinks.contains(event.target);
+                    const isClickOnToggle = menuToggle.contains(event.target);
+                    
+                    if (!isClickInsideNav && !isClickOnToggle && navLinks.classList.contains('active')) {
+                        menuToggle.classList.remove('active');
+                        navLinks.classList.remove('active');
+                    }
+                });
+            } else {
+                console.error('Menu toggle or nav links not found');
+            }
+        });
 
         // Smooth scrolling for navigation links with proper offset
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
