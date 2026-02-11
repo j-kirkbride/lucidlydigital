@@ -2477,6 +2477,16 @@
     </footer>
 
     <script>
+        // Close mobile menu when clicking a nav link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                const navToggle = document.getElementById('nav-toggle');
+                if (navToggle) {
+                    navToggle.checked = false;
+                }
+            });
+        });
+
         // Smooth scrolling for navigation links with proper offset
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
