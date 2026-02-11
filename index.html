@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9BZCXRPLGC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9BZCXRPLGC');
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lucidly Digital - Comprehensive Digital Solutions for Modern Businesses</title>
@@ -2666,19 +2675,19 @@
                 
                 <!-- Image 9 -->
                 <div class="work-image" data-position="0" data-image="9">
-                    <img src="work-9.jpg" alt="Portfolio Image 9" loading="lazy">
+                    <img src="work-9.png" alt="Portfolio Image 9" loading="eager">
                 </div>
                 <!-- Image 10 -->
                 <div class="work-image" data-position="1" data-image="10">
-                    <img src="work-10.png" alt="Portfolio Image 10" loading="lazy">
+                    <img src="work-10.png" alt="Portfolio Image 10" loading="eager">
                 </div>
                 <!-- Image 11 -->
                 <div class="work-image" data-position="2" data-image="11">
-                    <img src="work-11.png" alt="Portfolio Image 11" loading="lazy">
+                    <img src="work-11.png" alt="Portfolio Image 11" loading="eager">
                 </div>
                 <!-- Image 12 -->
                 <div class="work-image" data-position="3" data-image="12">
-                    <img src="work-12.png" alt="Portfolio Image 12" loading="lazy">
+                    <img src="work-12.png" alt="Portfolio Image 12" loading="eager">
                 </div>
             </div>
         </div>
@@ -3109,21 +3118,24 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    messageDiv.className = 'contact-form-message success';
-                    messageDiv.textContent = '✓ Message sent successfully! We\'ll get back to you soon.';
-                    document.getElementById('contact-form').reset();
+                    // Track conversion in Google Analytics
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'conversion', {
+                            'send_to': 'G-9BZCXRPLGC',
+                            'event_category': 'Contact',
+                            'event_label': 'Form Submission'
+                        });
+                    }
                     
-                    // Close modal after 2 seconds
-                    setTimeout(() => {
-                        closeContactModal();
-                    }, 2000);
+                    // Redirect to thank you page
+                    window.location.href = '/thank-you.html';
                 } else {
                     throw new Error('Failed to send message');
                 }
             } catch (error) {
                 messageDiv.className = 'contact-form-message error';
                 messageDiv.textContent = '✗ Something went wrong. Please email us directly at hello@lucidlydigital.com';
-            } finally {
+                
                 submitBtn.disabled = false;
                 btnText.style.display = 'inline';
                 btnLoading.style.display = 'none';
