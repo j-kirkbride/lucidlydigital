@@ -211,127 +211,25 @@
             border-color: rgba(255, 255, 255, 0.4);
         }
 
-        /* Hamburger Menu */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-            cursor: pointer;
-            padding: 12px;
-            position: relative;
-            z-index: 1002;
-            -webkit-tap-highlight-color: rgba(255, 255, 255, 0.2);
-            min-width: 44px;
-            min-height: 44px;
-            justify-content: center;
-            align-items: center;
-            touch-action: manipulation;
-        }
-
-        .menu-toggle:active {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .menu-toggle span {
-            width: 30px;
-            height: 3px;
-            background: white;
-            border-radius: 2px;
-            transition: all 0.3s ease;
-            display: block;
-        }
-
-        .menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
-        }
-
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
+        /* Mobile Navigation - Simple Wrap */
         @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
-            }
-
-            /* Mobile nav - show by default for now, fix positioning */
-            nav .nav-links {
-                position: fixed;
-                top: 90px; /* Increased from 80px */
-                left: 0;
-                width: 100%;
-                background: var(--primary);
-                z-index: 1000;
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-                
-                /* TESTING: Show by default */
-                display: block !important;
-                
-                /* Reset desktop styles */
-                flex-direction: column;
-                gap: 0;
-                align-items: stretch;
-                padding: 0;
-                margin: 0;
-            }
-
-            /* Note: .active class temporarily disabled for testing */
-            nav .nav-links.active {
-                /* display: block; */
-            }
-
-            nav .nav-links li {
-                width: 100%;
-                display: block;
-                list-style: none;
-                margin: 0;
-                padding: 0;
-            }
-
-            nav .nav-links a {
-                width: 100%;
-                display: block;
-                text-align: center;
-                padding: 1.25rem 1.5rem;
-                font-size: 1rem;
-                color: white;
-                text-decoration: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                background: transparent;
-                border-radius: 0;
-                margin: 0;
-            }
-
-            nav .nav-links a:hover,
-            nav .nav-links a:active {
-                background: rgba(255, 255, 255, 0.15);
-                transform: none;
-                border-color: rgba(255, 255, 255, 0.2);
-            }
-
             nav .container {
-                padding: 1rem 1rem;
-                justify-content: space-between;
+                flex-wrap: wrap;
+                padding: 1rem;
             }
 
-            .logo {
-                padding: 0.5rem 1rem;
-                border-width: 2px;
+            .nav-links {
+                width: 100%;
+                order: 3;
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
             }
 
-            .logo-icon {
-                height: 38px;
-            }
-
-            .logo-text {
-                height: 26px;
+            .nav-links a {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.9rem;
             }
         }
 
@@ -2135,11 +2033,6 @@
             <a href="#" class="logo">
                 <img src="logo.png" alt="Lucidly Digital Icon" class="logo-icon">
             </a>
-            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
             <ul class="nav-links" id="nav-links">
                 <li><a href="#services">Solutions</a></li>
                 <li><a href="#work">Work</a></li>
@@ -2544,47 +2437,6 @@
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Hamburger menu toggle
-            const menuToggle = document.getElementById('menu-toggle');
-            const navLinks = document.getElementById('nav-links');
-
-            if (menuToggle && navLinks) {
-                // Simple click handler
-                menuToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    this.classList.toggle('active');
-                    navLinks.classList.toggle('active');
-                });
-                
-                // Touchstart for iOS
-                menuToggle.addEventListener('touchstart', function(e) {
-                    e.preventDefault();
-                    this.classList.toggle('active');
-                    navLinks.classList.toggle('active');
-                });
-
-                // Close menu when clicking a link
-                navLinks.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', function() {
-                        menuToggle.classList.remove('active');
-                        navLinks.classList.remove('active');
-                    });
-                });
-
-                // Close menu when clicking outside
-                document.addEventListener('click', function(event) {
-                    const isClickInsideNav = navLinks.contains(event.target);
-                    const isClickOnToggle = menuToggle.contains(event.target);
-                    
-                    if (!isClickInsideNav && !isClickOnToggle && navLinks.classList.contains('active')) {
-                        menuToggle.classList.remove('active');
-                        navLinks.classList.remove('active');
-                    }
-                });
-            }
-        });
-
         // Smooth scrolling for navigation links with proper offset
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
