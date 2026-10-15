@@ -108,7 +108,7 @@ function buildGallery(files) {
         label.textContent = String(i + 1).padStart(2, '0');
 
         btn.append(img, label);
-        btn.addEventListener('click', () => { lbIndex = i; openLightbox(); });
+        btn.addEventListener('click', () => { lbIndex = i; openLightbox(btn); });
         grid.appendChild(btn);
     });
 
@@ -132,6 +132,46 @@ function closeNav() {
     navLinks.classList.remove('open');
     burger.setAttribute('aria-expanded', 'false');
     burger.textContent = 'Menu';
+}
+
+if (burger && navLinks) {
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape' || !navLinks.classList.contains('open')) return;
+        const inside = navLinks.contains(document.activeElement);
+        closeNav();
+        if (inside) burger.focus();   // the link it was on is about to be hidden
+    });
+}
+
+/* ---------- pause control for the ticker and the homepage panel ----------
+   Both move for well over five seconds, so WCAG 2.2.2 wants a way to stop
+   them. One button, in the ticker, which the fixed nav keeps on screen. */
+const ticker = document.querySelector('.ticker');
+if (ticker && !prefersReduced) {
+    const pause = document.createElement('button');
+    pause.type = 'button';
+    pause.className = 'ticker-pause';
+    pause.setAttribute('aria-pressed', 'false');
+    pause.setAttribute('aria-label', 'Pause animation');
+    pause.textContent = '❚❚';
+    // A sibling, not a child: the ticker is aria-hidden.
+    ticker.parentNode.insertBefore(pause, ticker.nextSibling);
+
+    const setPaused = (paused) => {
+        ticker.classList.toggle('is-paused', paused);
+        pause.setAttribute('aria-pressed', String(paused));
+        pause.textContent = paused ? '▶' : '❚❚';
+        const frame = document.getElementById('shot-frame');
+        const dots = document.getElementById('shot-dots');
+        [frame, dots].forEach(el => {
+            if (el && el.getAnimations) el.getAnimations({ subtree: true }).forEach(a => paused ? a.pause() : a.play());
+        });
+        try { localStorage.setItem('ld-motion-paused', paused ? '1' : ''); } catch (e) { /* private mode */ }
+    };
+    pause.addEventListener('click', () => setPaused(pause.getAttribute('aria-pressed') !== 'true'));
+    let saved = '';
+    try { saved = localStorage.getItem('ld-motion-paused') || ''; } catch (e) { /* private mode */ }
+    if (saved) window.addEventListener('load', () => setPaused(true));
 }
 
 /* ---------- scroll reveal ---------- */
@@ -160,19 +200,32 @@ document.querySelectorAll('.faq-q').forEach(btn => {
 
 /* ---------- gallery lightbox ---------- */
 
-function openLightbox() {
+/* The tile that opened it, so focus goes back there on close. Passed in
+   rather than read from activeElement: Safari doesn't focus a tapped button. */
+let lbOpener = null;
+let lbScrollY = 0;
+
+function openLightbox(opener) {
     const lb = document.getElementById('lightbox');
-    if (!lb) return;
+    if (!lb || lb.classList.contains('active')) return;
+    lbOpener = opener || document.activeElement;
     lb.classList.add('active');
     updateLightboxImage();
-    document.body.style.overflow = 'hidden';
+    // iOS Safari scrolls the page behind overflow:hidden; pin it instead.
+    lbScrollY = window.scrollY;
+    document.body.style.top = (-lbScrollY) + 'px';
+    document.body.classList.add('is-locked');
+    lb.querySelector('.lb-close').focus();
 }
 
 function closeLightbox() {
     const lb = document.getElementById('lightbox');
-    if (!lb) return;
+    if (!lb || !lb.classList.contains('active')) return;
     lb.classList.remove('active');
-    document.body.style.overflow = '';
+    document.body.classList.remove('is-locked');
+    document.body.style.top = '';
+    window.scrollTo({ top: lbScrollY, behavior: 'instant' });   // html has smooth scrolling
+    if (lbOpener) lbOpener.focus();
 }
 
 function changeLightboxImage(direction) {
@@ -182,7 +235,9 @@ function changeLightboxImage(direction) {
 }
 
 function updateLightboxImage() {
-    document.getElementById('lightbox-img').src = gallerySrcs[lbIndex];
+    const img = document.getElementById('lightbox-img');
+    img.src = gallerySrcs[lbIndex];
+    img.alt = 'Project photo ' + (lbIndex + 1);
     document.getElementById('lightbox-counter').textContent = (lbIndex + 1) + ' / ' + gallerySrcs.length;
 }
 
@@ -198,6 +253,13 @@ if (lbEl) {
         } else if (lbEl.classList.contains('active')) {
             if (e.key === 'ArrowLeft') changeLightboxImage(-1);
             if (e.key === 'ArrowRight') changeLightboxImage(1);
+            if (e.key === 'Tab') {
+                // Keep Tab inside the viewer.
+                const f = [...lbEl.querySelectorAll('button')];
+                const first = f[0], last = f[f.length - 1];
+                if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+                else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+            }
         }
     });
 }

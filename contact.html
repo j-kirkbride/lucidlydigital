@@ -53,10 +53,10 @@
                 <li><a href="process.html">Process</a></li>
                 <li><a href="faq.html">Questions</a></li>
                 <li><a href="contact.html" class="active">Contact</a></li>
-                <li class="mobile-cta"><a href="contact.html"><button type="button">Start a project</button></a></li>
+                <li class="mobile-cta"><a href="contact.html">Start a project</a></li>
             </ul>
 
-            <a href="contact.html"><button class="nav-cta" type="button">Start a project</button></a>
+            <a href="contact.html" class="nav-cta">Start a project</a>
         </div>
 
             <div class="ticker" aria-hidden="true">
@@ -95,11 +95,11 @@
                     <form id="contact-form" onsubmit="handleContactSubmit(event)">
                         <div class="field">
                             <label for="contact-name">Your name</label>
-                            <input type="text" id="contact-name" name="name" required placeholder="Jordan Reyes">
+                            <input type="text" id="contact-name" name="name" autocomplete="name" required placeholder="Jordan Reyes">
                         </div>
                         <div class="field">
                             <label for="contact-email">Email</label>
-                            <input type="email" id="contact-email" name="email" required placeholder="jordan@yourbusiness.com">
+                            <input type="email" id="contact-email" name="email" autocomplete="email" required placeholder="jordan@yourbusiness.com">
                         </div>
                         <div class="field">
                             <label for="contact-message">What's the problem?</label>
@@ -116,7 +116,7 @@
                 </div>
 
                 <aside class="contact-aside reveal">
-                    <h3>What happens next</h3>
+                    <h2>What happens next</h2>
                     <ol class="next-steps">
                         <li><span class="n">01</span><span>You send a few sentences about what's going on.</span></li>
                         <li><span class="n">02</span><span>We reply with questions, or a time to talk it through.</span></li>

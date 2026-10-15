@@ -4,7 +4,7 @@
             --paper:    #F8F9FA;
             --mark:     #FF6B6B;
             --text:     #2D3748;
-            --muted:    #718096;
+            --muted:    #596579;   /* 5.6:1 on --paper; #718096 was 3.8:1 */
             --rule:     #E2E8F0;
             --card:     #FFFFFF;
 
@@ -52,7 +52,7 @@
 
         .eyebrow {
             font-family: var(--mono);
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 500;
             letter-spacing: 0.16em;
             text-transform: uppercase;
@@ -94,7 +94,7 @@
         .band + .band { border-top: 1px solid var(--rule); }
 
         .band-head { max-width: 46rem; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
-        .band-head h2 {
+        .band-head h1, .band-head h2 {
             font-size: clamp(2rem, 4.6vw, 3.25rem);
             margin-top: 1.1rem;
         }
@@ -169,7 +169,7 @@
         }
         .nav-links a {
             font-family: var(--mono);
-            font-size: 0.74rem;
+            font-size: 0.75rem;
             letter-spacing: 0.13em;
             text-transform: uppercase;
             color: var(--muted);
@@ -194,7 +194,7 @@
 
         .nav-cta {
             font-family: var(--mono);
-            font-size: 0.74rem;
+            font-size: 0.75rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             background: var(--mark);
@@ -212,7 +212,7 @@
             border: 1px solid var(--ink-14);
             color: var(--ink);
             font-family: var(--mono);
-            font-size: 0.72rem;
+            font-size: 0.75rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             padding: 0.6rem 0.85rem;
@@ -259,7 +259,7 @@
             gap: 0.55rem;
             padding-inline: 1.5rem;
             font-family: var(--mono);
-            font-size: 0.63rem;
+            font-size: 0.75rem;
             font-weight: 500;
             letter-spacing: 0.22em;
             text-transform: uppercase;
@@ -288,7 +288,7 @@
         @media (max-width: 600px) {
             .ticker { height: 32px; }
             .ticker::before, .ticker::after { width: 48px; }
-            .tick-item { font-size: 0.58rem; padding-inline: 1.1rem; }
+            .tick-item { font-size: 0.75rem; padding-inline: 1.1rem; }
             .tick-item::after { margin-left: 1.1rem; }
         }
 
@@ -430,7 +430,7 @@
             background: var(--paper);
             padding-inline: 0.6rem;
             font-family: var(--mono);
-            font-size: 0.62rem;
+            font-size: 0.75rem;
             letter-spacing: 0.2em;
             color: var(--muted);
         }
@@ -459,7 +459,7 @@
             gap: 1rem;
             padding: 0.85rem 0.3rem 0.15rem;
             font-family: var(--mono);
-            font-size: 0.64rem;
+            font-size: 0.75rem;
             letter-spacing: 0.16em;
             text-transform: uppercase;
             color: var(--muted);
@@ -501,12 +501,12 @@
         .cap:hover { background: #fff; }
         .cap-verb {
             font-family: var(--mono);
-            font-size: 0.68rem;
+            font-size: 0.75rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
             color: var(--mark);
         }
-        .cap h3 {
+        .cap h2, .cap h3 {
             font-size: 1.42rem;
             margin: 0.85rem 0 0.9rem;
         }
@@ -552,7 +552,7 @@
             gap: clamp(2rem, 5vw, 4.5rem);
             align-items: start;
         }
-        .support-lead h3 {
+        .support-lead h2, .support-lead h3 {
             font-size: clamp(1.6rem, 2.9vw, 2.15rem);
             margin-top: 1rem;
         }
@@ -593,9 +593,9 @@
         }
         .support-item:nth-child(odd) { border-right: 1px solid var(--rule); padding-right: 1.75rem; }
         .support-item:nth-child(even) { padding-left: 1.75rem; }
-        .support-item h4 {
+        .support-item h3, .support-item h4 {
             font-family: var(--mono);
-            font-size: 0.68rem;
+            font-size: 0.75rem;
             font-weight: 500;
             letter-spacing: 0.16em;
             text-transform: uppercase;
@@ -618,12 +618,12 @@
         .case:last-of-type { border-bottom: 1px solid var(--rule); }
         .case-meta .kind {
             font-family: var(--mono);
-            font-size: 0.68rem;
+            font-size: 0.75rem;
             letter-spacing: 0.18em;
             text-transform: uppercase;
             color: var(--mark);
         }
-        .case-meta h3 {
+        .case-meta h2, .case-meta h3 {
             font-size: 1.5rem;
             margin-top: 0.7rem;
         }
@@ -637,7 +637,7 @@
         .case-line { display: grid; grid-template-columns: 7.5rem 1fr; gap: 1.4rem; align-items: start; }
         .case-line dt {
             font-family: var(--mono);
-            font-size: 0.68rem;
+            font-size: 0.75rem;
             letter-spacing: 0.14em;
             text-transform: uppercase;
             color: var(--muted);
@@ -670,8 +670,8 @@
             margin-top: clamp(3rem, 6vw, 4.5rem);
             margin-bottom: 1.5rem;
         }
-        .gallery-head h3 { font-size: 1.3rem; }
-        .gallery-head span { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); letter-spacing: 0.1em; }
+        .gallery-head h2, .gallery-head h3 { font-size: 1.3rem; }
+        .gallery-head span { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; }
 
         .gallery {
             display: grid;
@@ -708,7 +708,7 @@
             inset: auto 0 0 0;
             padding: 0.7rem;
             font-family: var(--mono);
-            font-size: 0.66rem;
+            font-size: 0.75rem;
             letter-spacing: 0.14em;
             color: #fff;
             opacity: 0;
@@ -723,7 +723,7 @@
 
         /* ---------- process ---------- */
         .process { background: var(--ink); color: #fff; }
-        .process .band-head h2 { color: #fff; }
+        .process .band-head h1, .process .band-head h2 { color: #fff; }
         .process .band-head p { color: rgba(255,255,255,0.72); }
         .process .eyebrow::after, .process .eyebrow::before { background: rgba(255,255,255,0.22); }
 
@@ -740,11 +740,11 @@
         }
         .step .num {
             font-family: var(--mono);
-            font-size: 0.72rem;
+            font-size: 0.75rem;
             letter-spacing: 0.2em;
             color: var(--mark);
         }
-        .step h3 {
+        .step h2, .step h3 {
             color: #fff;
             font-size: 1.22rem;
             margin: 1.1rem 0 0.75rem;
@@ -883,7 +883,7 @@
         .next-steps li:first-child { padding-top: 0; }
         .next-steps .n {
             font-family: var(--mono);
-            font-size: 0.72rem;
+            font-size: 0.75rem;
             letter-spacing: 0.12em;
             color: var(--mark);
         }
@@ -1009,7 +1009,7 @@
         .field label {
             display: block;
             font-family: var(--mono);
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             letter-spacing: 0.14em;
             text-transform: uppercase;
             color: var(--ink);
@@ -1206,7 +1206,7 @@
         }
         .pager .lbl {
             font-family: var(--mono);
-            font-size: 0.68rem;
+            font-size: 0.75rem;
             letter-spacing: 0.18em;
             text-transform: uppercase;
             color: var(--mark);
@@ -1239,10 +1239,10 @@
             transition: background 0.25s ease, transform 0.25s ease;
         }
         .teaser:hover { transform: translateY(-3px); }
-        .teaser .cap-verb { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mark); }
+        .teaser .cap-verb { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mark); }
         .teaser h3 { font-size: 1.3rem; margin: 0.8rem 0 0.7rem; }
         .teaser p { color: var(--muted); font-size: 0.95rem; flex: 1; }
-        .teaser .go { margin-top: 1.3rem; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); }
+        .teaser .go { margin-top: 1.3rem; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); }
         .teaser:hover .go { color: var(--mark); }
 
 
@@ -1281,7 +1281,7 @@
             border-bottom: 1px dashed var(--rule); padding-bottom: 0.55rem;
         }
         .contact-aside .row span:last-child { color: var(--ink); text-align: right; }
-        .contact-aside h3 { font-size: 1.25rem; margin-bottom: 1.2rem; }
+        .contact-aside h2, .contact-aside h3 { font-size: 1.25rem; margin-bottom: 1.2rem; }
         .contact-aside .note { margin-top: 1.6rem; color: var(--muted); font-size: 0.95rem; }
 
         @media (max-width: 1024px) {
@@ -1293,3 +1293,65 @@
            (.band-head p / .page-head p / .support-lead > p otherwise win on specificity) */
         p.eyebrow { color: var(--mark); margin-top: 0; }
         .process p.eyebrow { color: var(--mark); }
+
+/* ---------- accessibility fixes (audit 2026-10) ----------
+   Kept together so the look above stays readable. */
+
+/* Tap targets: 44px. */
+.nav-burger { min-height: 44px; min-width: 44px; }
+/* Desktop only: under 861px the nav's own rule hides it. */
+@media (min-width: 861px) { .nav-cta { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; } }
+.brand { min-height: 44px; }
+.socials a { width: 44px; height: 44px; }
+.nav-links .mobile-cta a {
+    display: block;
+    width: 100%;
+    background: var(--mark);
+    color: #fff;
+    border: 0;
+    padding: 1rem;
+    text-align: center;
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+/* thank-you's card heading was an h3 at the browser's h3 size. */
+.contact-card h2 { font-size: 1.17em; }
+
+/* The closed mobile menu is only slid off-screen; hide it from Tab and
+   screen readers too, after the slide finishes. */
+@media (max-width: 860px) {
+    .nav-links { visibility: hidden; transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.3, 1), visibility 0s linear 0.35s; }
+    .nav-links.open { visibility: visible; transition-delay: 0s; }
+}
+
+/* Ticker pause (WCAG 2.2.2: anything moving for over 5 seconds needs one). */
+.ticker-pause {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 38px;            /* the ticker's own height; it sits on the ticker's right end */
+    z-index: 3;
+    width: 44px;
+    display: grid;
+    place-items: center;
+    background: var(--ink);
+    color: #fff;
+    border: 0;
+    border-left: 1px solid rgba(255,255,255,0.22);
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+.ticker-pause:hover { background: #000063; }
+@media (max-width: 600px) { .ticker-pause { height: 32px; } }
+.ticker.is-paused .ticker-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+    .ticker-track { animation: none !important; }
+    .ticker-pause { display: none; }
+}
+
+/* iOS ignores overflow:hidden on body; the lightbox pins it instead. */
+body.is-locked { position: fixed; left: 0; right: 0; overflow: hidden; }
